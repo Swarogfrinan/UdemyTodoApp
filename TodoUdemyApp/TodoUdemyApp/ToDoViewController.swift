@@ -31,7 +31,17 @@ extension ToDoViewController {
 // MARK: Extension Delegate Method
 extension ToDoViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       
         print("you tappped a cell \(itemArray[indexPath.row]) by number \(indexPath.row)")
-        tableView.deselectRow(at: indexPath animated: true)
+       
+        if  tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
+            tableView.cellForRow(at: indexPath)?.accessoryType = .none
+        } else {
+            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+  
 }
