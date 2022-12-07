@@ -5,14 +5,36 @@ class ToDoViewController: UITableViewController {
     
     // MARK: Constants
     let identifier = "Cell"
-let itemArray = ["First Item","Second Item", "Third Item"]
+    let itemArray = ["First Item","Second Item", "Third Item"]
     
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
+    
+    // MARK: Methods
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Add new Todoey Item", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add item", style: .default) {_ in
+            print("Sucsess add item \(String(describing: textField.text))")
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create new item"
+            print("User create new item \(String(describing: alertTextField.text))")
+            textField = alertTextField
+        }
+        
+        alert.addAction(action)
+        present(alert, animated: true)
     }
+}
 
 // MARK: Extension DataSource Method
 
