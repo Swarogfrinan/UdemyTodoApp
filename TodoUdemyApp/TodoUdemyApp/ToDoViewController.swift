@@ -16,10 +16,10 @@ class ToDoViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let items = defaults.array(forKey: "itemArray") as? [Item] {
-            itemArray = items
-        }
+        print(dataFilePath)
+        loadItems()
     }
+    
     
     // MARK: Methods
     
@@ -39,7 +39,7 @@ class ToDoViewController: UITableViewController {
             self.saveItems()
         }
         
-       
+        
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Create new item"
             print("User create new item \(String(describing: alertTextField.text))")
@@ -51,22 +51,34 @@ class ToDoViewController: UITableViewController {
     }
 }
 
-    //MARK: Private methods
-    
- private extension ToDoViewController {
-     
-     func saveItems() {
-         let encoder = PropertyListEncoder()
-         do {
-             let data = try encoder.encode(self.itemArray)
-             try data.write(to: dataFilePath!)
-         } catch {
-             print("Error encoding item array \(error)")
-         }
-         tableView.reloadData()
-     }
-    }
+//MARK: Private methods
 
+private extension ToDoViewController {
+    
+    func saveItems() {
+        let encoder = PropertyListEncoder()
+        do {
+            let data = try encoder.encode(self.itemArray)
+            try data.write(to: dataFilePath!)
+        } catch {
+            print("Error encoding item array \(error)")
+        }
+        tableView.reloadData()
+    }
+    
+    func loadItems() {
+        
+        if let data = try? Data(contentsOf: dataFilePath!) {
+            let decoder = PropertyListDecoder()
+            
+            do {
+                itemArray = try decoder.decode([Item].self, from: data)
+            } catch {
+                print("Error to decoding item array \(error)")
+            }
+        }
+    }
+}
 
 // MARK: DataSource
 
@@ -81,7 +93,7 @@ extension ToDoViewController {
         let item = itemArray[indexPath.row]
         
         cell.accessoryType = item.checked ? .checkmark : .none
-           
+        
         cell.textLabel?.text = item.title
         return cell
     }
@@ -92,20 +104,15 @@ extension ToDoViewController {
 extension ToDoViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
+        
         print("you tappped a cell \(itemArray[indexPath.row]) by number \(indexPath.row)")
+        
         itemArray[indexPath.row].checked = !itemArray[indexPath.row].checked
         tableView.reloadData()
-        
-       
-        if  tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        } else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        }
+        saveItems()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-  
+    
 }
