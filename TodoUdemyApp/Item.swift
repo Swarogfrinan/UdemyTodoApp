@@ -1,11 +1,7 @@
 
 import Foundation
-class Item {
-    var name : String
-    var checked : Bool
-    
-    init(name: String, checked: Bool) {
-        self.name = name
-        self.checked = checked
+class Item: Encodable {
+    var title : String = ""
+    var checked : Bool = false
     }
-}
+
