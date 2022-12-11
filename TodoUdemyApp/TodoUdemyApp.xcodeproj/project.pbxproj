@@ -39,10 +39,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		43BF496729409924005AE129 = {
+		43BC14602946179E009115B5 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
 				43B6957E29435EB1008295F1 /* Item.swift */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		43BC1461294617A8009115B5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				43BF497929409924005AE129 /* Main.storyboard */,
+				43BF497E29409927005AE129 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		43BC1462294617AE009115B5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				43BF497729409924005AE129 /* ToDoViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		43BC1463294617BE009115B5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				43BF497329409924005AE129 /* AppDelegate.swift */,
+				43BF497C29409927005AE129 /* Assets.xcassets */,
+				43BF497529409924005AE129 /* SceneDelegate.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		43BF496729409924005AE129 = {
+			isa = PBXGroup;
+			children = (
 				43BF497229409924005AE129 /* TodoUdemyApp */,
 				43BF497129409924005AE129 /* Products */,
 			);
@@ -59,12 +93,10 @@
 		43BF497229409924005AE129 /* TodoUdemyApp */ = {
 			isa = PBXGroup;
 			children = (
-				43BF497329409924005AE129 /* AppDelegate.swift */,
-				43BF497529409924005AE129 /* SceneDelegate.swift */,
-				43BF497729409924005AE129 /* ToDoViewController.swift */,
-				43BF497929409924005AE129 /* Main.storyboard */,
-				43BF497C29409927005AE129 /* Assets.xcassets */,
-				43BF497E29409927005AE129 /* LaunchScreen.storyboard */,
+				43BC1462294617AE009115B5 /* Controller */,
+				43BC1461294617A8009115B5 /* View */,
+				43BC14602946179E009115B5 /* DataModel */,
+				43BC1463294617BE009115B5 /* Resources */,
 				43BF498129409927005AE129 /* Info.plist */,
 			);
 			path = TodoUdemyApp;
