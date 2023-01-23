@@ -60,6 +60,7 @@ class CategoryViewController: UITableViewController {
 }
 
 //MARK: TableView DataSource Methods
+
 extension CategoryViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categoryArray.count
@@ -71,7 +72,6 @@ extension CategoryViewController {
         return cell
     }
 }
-//MARK: TableViewMethod
 
 //MARK: TableView Delegate Methods
 
@@ -79,8 +79,15 @@ extension CategoryViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("you tappped a cell \(categoryArray[indexPath.row]) by number : \(indexPath.row)")
+        performSegue(withIdentifier: "goToItems", sender: self)
         saveCategories()
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! ToDoViewController
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destinationVC.selectedCategory = categoryArray[indexPath.row]
+        }
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

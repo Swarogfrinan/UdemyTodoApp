@@ -5,17 +5,20 @@ class ToDoViewController: UITableViewController {
     
     // MARK: Constants
     
-    let identifier = "Cell"
-    let defaults = UserDefaults.standard
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathExtension("Items.plist")
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var itemArray = [Item]()
+    
+    var selectedCategory : Category? {
+        didSet {
+            loadItems()
+        }
+    }
     
     // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadItems()
     }
     
     
@@ -24,7 +27,7 @@ class ToDoViewController: UITableViewController {
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
         var textField = UITextField()
-    
+        
         let alert = UIAlertController(title: "Add new Todoey Item", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add item", style: .default) {_ in
@@ -32,6 +35,7 @@ class ToDoViewController: UITableViewController {
             let newItem = Item(context: self.context)
             newItem.title = textField.text!
             newItem.checked = false
+            newItem.parentCategory = self.selectedCategory
             self.itemArray.append(newItem)
             self.saveItems()
         }
@@ -53,34 +57,30 @@ private extension ToDoViewController {
     
     func saveItems() {
         do {
-           try context.save()
+            try context.save()
         } catch {
             print("Error encoding item array \(error)")
         }
         tableView.reloadData()
     }
-    //        let encoder = PropertyListEncoder()
-    //            let data = try encoder.encode(self.itemArray)
-    //            try data.write(to: dataFilePath!)
     
-    func loadItems() {
+    
+    func loadItems(with request : NSFetchRequest<Item> = Item.fetchRequest(), predicate : NSPredicate? = nil) {
         
-        let request : NSFetchRequest<Item> = Item.fetchRequest()
+        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.title!)
+        if let additionalPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate] )
+        } else {
+            request.predicate = categoryPredicate
+        }
         do {
-           itemArray = try context.fetch(request)
+            itemArray = try context.fetch(request)
         } catch {
             print("Error loading request in DataBase")
         }
         tableView.reloadData()
     }
 }
-//        if let data = try? Data(contentsOf: dataFilePath!)  {
-//            let decoder = PropertyListDecoder()
-
-//            do {
-//                itemArray = try decoder.decode([Item].self, from: data)
-//            } catch {
-//                print("Error to decoding item array \(error)")
 
 
 // MARK: DataSource
@@ -92,7 +92,7 @@ extension ToDoViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let item = itemArray[indexPath.row]
         cell.accessoryType = item.checked ? .checkmark : .none
         cell.textLabel?.text = item.title
@@ -126,7 +126,7 @@ extension ToDoViewController: UISearchBarDelegate {
         request.sortDescriptors = [sortDescriptor]
         
         do {
-           itemArray = try context.fetch(request)
+            itemArray = try context.fetch(request)
         } catch {
             print("Error loading request in DataBase")
         }
@@ -140,5 +140,5 @@ extension ToDoViewController: UISearchBarDelegate {
             }
         }
     }
-    }
+}
 

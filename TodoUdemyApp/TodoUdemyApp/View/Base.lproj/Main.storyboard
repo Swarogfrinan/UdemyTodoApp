@@ -31,7 +31,7 @@
         <!--ToDoEy-->
         <scene sceneID="Att-OZ-Qun">
             <objects>
-                <tableViewController id="QIv-Nj-JTP" customClass="CatogoryViewController" customModule="TodoUdemyApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="QIv-Nj-JTP" customClass="CategoryViewController" customModule="TodoUdemyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="SqC-lX-91d">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -54,7 +54,7 @@
                     <navigationItem key="navigationItem" title="ToDoEy" id="rM2-en-OR8">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="2Qo-vX-fVX">
                             <connections>
-                                <action selector="addButtonPressed:" destination="QIv-Nj-JTP" id="8UW-Rz-6P2"/>
+                                <action selector="addButtonPressed:" destination="QIv-Nj-JTP" id="Ld0-zo-M4W"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

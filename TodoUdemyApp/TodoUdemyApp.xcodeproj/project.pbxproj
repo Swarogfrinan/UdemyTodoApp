@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		437F70F8297EC157001872B8 /* Decode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437F70F7297EC157001872B8 /* Decode.swift */; };
 		43BC1466294617EF009115B5 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 43BC1464294617EF009115B5 /* DataModel.xcdatamodeld */; };
 		43BF497429409924005AE129 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BF497329409924005AE129 /* AppDelegate.swift */; };
 		43BF497629409924005AE129 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BF497529409924005AE129 /* SceneDelegate.swift */; };
@@ -14,10 +15,11 @@
 		43BF497B29409924005AE129 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43BF497929409924005AE129 /* Main.storyboard */; };
 		43BF497D29409927005AE129 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43BF497C29409927005AE129 /* Assets.xcassets */; };
 		43BF498029409927005AE129 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43BF497E29409927005AE129 /* LaunchScreen.storyboard */; };
-		43FF0A4A2976FFF2009C2D8C /* CatogoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FF0A492976FFF1009C2D8C /* CatogoryViewController.swift */; };
+		43FF0A4A2976FFF2009C2D8C /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FF0A492976FFF1009C2D8C /* CategoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		437F70F7297EC157001872B8 /* Decode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decode.swift; sourceTree = "<group>"; };
 		43BC1465294617EF009115B5 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		43BF497029409924005AE129 /* TodoUdemyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoUdemyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43BF497329409924005AE129 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -27,7 +29,7 @@
 		43BF497C29409927005AE129 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43BF497F29409927005AE129 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		43BF498129409927005AE129 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		43FF0A492976FFF1009C2D8C /* CatogoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatogoryViewController.swift; sourceTree = "<group>"; };
+		43FF0A492976FFF1009C2D8C /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +64,8 @@
 			isa = PBXGroup;
 			children = (
 				43BF497729409924005AE129 /* ToDoViewController.swift */,
-				43FF0A492976FFF1009C2D8C /* CatogoryViewController.swift */,
+				437F70F7297EC157001872B8 /* Decode.swift */,
+				43FF0A492976FFF1009C2D8C /* CategoryViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -177,10 +180,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				43BC1466294617EF009115B5 /* DataModel.xcdatamodeld in Sources */,
+				437F70F8297EC157001872B8 /* Decode.swift in Sources */,
 				43BF497829409924005AE129 /* ToDoViewController.swift in Sources */,
 				43BF497429409924005AE129 /* AppDelegate.swift in Sources */,
 				43BF497629409924005AE129 /* SceneDelegate.swift in Sources */,
-				43FF0A4A2976FFF2009C2D8C /* CatogoryViewController.swift in Sources */,
+				43FF0A4A2976FFF2009C2D8C /* CategoryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
