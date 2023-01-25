@@ -80,7 +80,6 @@
 			isa = PBXGroup;
 			children = (
 				43BF497729409924005AE129 /* ToDoViewController.swift */,
-				437F70F7297EC157001872B8 /* Decode.swift */,
 				43FF0A492976FFF1009C2D8C /* CategoryViewController.swift */,
 			);
 			path = Controller;
@@ -117,9 +116,10 @@
 		43BF497229409924005AE129 /* TodoUdemyApp */ = {
 			isa = PBXGroup;
 			children = (
-				43BC1462294617AE009115B5 /* Controller */,
-				43BC1461294617A8009115B5 /* View */,
+				437F70F7297EC157001872B8 /* Decode.swift */,
 				43BC14602946179E009115B5 /* DataModel */,
+				43BC1461294617A8009115B5 /* View */,
+				43BC1462294617AE009115B5 /* Controller */,
 				43BC1463294617BE009115B5 /* Resources */,
 				43BF498129409927005AE129 /* Info.plist */,
 			);

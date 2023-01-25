@@ -4,7 +4,7 @@ import RealmSwift
 class CategoryViewController: UITableViewController {
     let realm = try! Realm()
     let identifier = "CategoryTableCell"
-    var categoryArray : Results<Category>?
+    var categories : Results<Category>?
     
     //MARK: Lifecycle
     override func viewDidLoad() {
@@ -26,7 +26,7 @@ class CategoryViewController: UITableViewController {
     }
     
     func loadCategories() {
-        categoryArray = realm.objects(Category.self)
+        categories = realm.objects(Category.self)
         tableView.reloadData()
     }
     
@@ -44,6 +44,7 @@ class CategoryViewController: UITableViewController {
             newCategory.title = textField.text!
             self.save(category: newCategory)
         }
+        alert.addAction(action)
         
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Create new category"
@@ -51,7 +52,7 @@ class CategoryViewController: UITableViewController {
             textField = alertTextField
         }
         
-        alert.addAction(action)
+        
         present(alert, animated: true)
     }
 }
@@ -60,11 +61,13 @@ class CategoryViewController: UITableViewController {
 
 extension CategoryViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoryArray?.count ?? 1
+        return categories?.count ?? 1
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        cell.textLabel?.text = categoryArray?[indexPath.row].title ?? "No categories added yet"
+        cell.textLabel?.text = categories?[indexPath.row].title ?? "No categories added yet"
         return cell
     }
 }
@@ -74,7 +77,7 @@ extension CategoryViewController {
 extension CategoryViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let didSelectCategory = categoryArray?[indexPath.row]{
+        if let didSelectCategory = categories?[indexPath.row] {
             print("you tappped a cell \(didSelectCategory) by number : \(indexPath.row)")
             performSegue(withIdentifier: "goToItems", sender: self)
             save(category: didSelectCategory)
@@ -85,19 +88,25 @@ extension CategoryViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! ToDoViewController
         if let indexPath = tableView.indexPathForSelectedRow {
-            destinationVC.selectedCategory = categoryArray?[indexPath.row]
+            destinationVC.selectedCategory = categories?[indexPath.row]
         }
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if let deletedCategory = categoryArray?[indexPath.row] {
+        if let deletedCategory = categories?[indexPath.row] {
             if editingStyle == .delete {
-                realm.delete(deletedCategory)
+                do {
+                    try realm.write{
+                        realm.delete(deletedCategory)
+                    }
+                } catch {
+                    print("Error delete items : \(error)")
+                }
                 tableView.deleteRows(at: [indexPath], with: .automatic)
                 save(category: deletedCategory)
             }
         }
-       
+        
     }
 }
 
