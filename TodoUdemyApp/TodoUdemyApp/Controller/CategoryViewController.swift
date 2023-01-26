@@ -1,5 +1,6 @@
 import UIKit
 import RealmSwift
+import SwipeCellKit
 
 class CategoryViewController: UITableViewController {
     let realm = try! Realm()
@@ -57,7 +58,7 @@ class CategoryViewController: UITableViewController {
     }
 }
 
-//MARK: TableView DataSource Methods
+//MARK: - TableView DataSource Methods
 
 extension CategoryViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -66,13 +67,14 @@ extension CategoryViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! SwipeTableViewCell
+        cell.delegate = self
         cell.textLabel?.text = categories?[indexPath.row].title ?? "No categories added yet"
         return cell
     }
 }
 
-//MARK: TableView Delegate Methods
+//MARK: - TableView Delegate Methods
 
 extension CategoryViewController {
     
@@ -91,23 +93,26 @@ extension CategoryViewController {
             destinationVC.selectedCategory = categories?[indexPath.row]
         }
     }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if let deletedCategory = categories?[indexPath.row] {
-            if editingStyle == .delete {
+        }
+
+
+//MARK: - Swipe Cell Delegate Methods
+extension CategoryViewController : SwipeTableViewCellDelegate {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+            if let categoryForDeletion = self.categories?[indexPath.row] {
                 do {
-                    try realm.write{
-                        realm.delete(deletedCategory)
+                    try self.realm.write{
+                        self.realm.delete(categoryForDeletion)
                     }
                 } catch {
                     print("Error delete items : \(error)")
                 }
-                tableView.deleteRows(at: [indexPath], with: .automatic)
-                save(category: deletedCategory)
             }
         }
-        
+        deleteAction.image = UIImage(systemName: "trash.fill")
+        return [deleteAction]
     }
 }
-
-
