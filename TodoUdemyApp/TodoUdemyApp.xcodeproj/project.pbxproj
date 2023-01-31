@@ -17,6 +17,7 @@
 		43BF497B29409924005AE129 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43BF497929409924005AE129 /* Main.storyboard */; };
 		43BF497D29409927005AE129 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43BF497C29409927005AE129 /* Assets.xcassets */; };
 		43BF498029409927005AE129 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43BF497E29409927005AE129 /* LaunchScreen.storyboard */; };
+		43C3A15C298947C3003B9352 /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C3A15B298947C3003B9352 /* SwipeTableViewController.swift */; };
 		43FF0A4A2976FFF2009C2D8C /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FF0A492976FFF1009C2D8C /* CategoryViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		43BF497C29409927005AE129 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43BF497F29409927005AE129 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		43BF498129409927005AE129 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43C3A15B298947C3003B9352 /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 		43FF0A492976FFF1009C2D8C /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		55F341D9ACFF614D79DDCC07 /* Pods_TodoUdemyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TodoUdemyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CA5B55E6D36455943FF9F02 /* Pods-TodoUdemyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodoUdemyApp.release.xcconfig"; path = "Target Support Files/Pods-TodoUdemyApp/Pods-TodoUdemyApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			children = (
 				43BF497729409924005AE129 /* ToDoViewController.swift */,
 				43FF0A492976FFF1009C2D8C /* CategoryViewController.swift */,
+				43C3A15B298947C3003B9352 /* SwipeTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43C3A15C298947C3003B9352 /* SwipeTableViewController.swift in Sources */,
 				43AA18B6297ED094007FB300 /* Category.swift in Sources */,
 				437F70F8297EC157001872B8 /* Decode.swift in Sources */,
 				43BF497829409924005AE129 /* ToDoViewController.swift in Sources */,

@@ -1,7 +1,7 @@
 import UIKit
 import RealmSwift
 
-class ToDoViewController: UITableViewController {
+class ToDoViewController: SwipeTableViewController {
     
     // MARK: Constants
     
@@ -18,8 +18,28 @@ class ToDoViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.rowHeight = 80.0
     }
     
+    
+    //MARK: Delete data from swipe
+    
+    override func updateModel(at indexPath: IndexPath) {
+        if let item = self.toDoItems?[indexPath.row] {
+            do {
+                try self.realm.write{
+                    self.realm.delete(item)
+                }
+            } catch {
+                print("Error delete items : \(error)")
+            }
+        }
+    }
+    
+    func loadItems() {
+        toDoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
+        tableView.reloadData()
+    }
     
     // MARK: Methods
     
@@ -58,17 +78,6 @@ class ToDoViewController: UITableViewController {
     }
 }
 
-//MARK: Private methods
-
-private extension ToDoViewController {
-    
-    func loadItems() {
-        toDoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
-        tableView.reloadData()
-    }
-}
-
-
 // MARK: DataSource
 
 extension ToDoViewController {
@@ -78,7 +87,9 @@ extension ToDoViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        
         if  let item = toDoItems?[indexPath.row] {
             cell.accessoryType = item.done ? .checkmark : .none
             cell.textLabel?.text = item.title
@@ -105,38 +116,22 @@ extension ToDoViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         tableView.reloadData()
     }
+}
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            if let item = toDoItems?[indexPath.row] {
-                do {
-                    try realm.write{
-                        realm.delete(item)
-                    }
-                } catch {
-                    print("Error delete items : \(error)")
+    extension ToDoViewController: UISearchBarDelegate {
+        
+        func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+            toDoItems = toDoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
+            tableView.reloadData()
+        }
+        
+        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            if searchBar.text?.count == 0 {
+                loadItems()
+                DispatchQueue.main.async {
+                    searchBar.resignFirstResponder()
                 }
-                tableView.deleteRows(at: [indexPath], with: .automatic)
-                tableView.reloadData()
             }
         }
     }
-}
-
-extension ToDoViewController: UISearchBarDelegate {
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        toDoItems = toDoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
-        tableView.reloadData()
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text?.count == 0 {
-            loadItems()
-            DispatchQueue.main.async {
-                searchBar.resignFirstResponder()
-            }
-        }
-    }
-}
 
