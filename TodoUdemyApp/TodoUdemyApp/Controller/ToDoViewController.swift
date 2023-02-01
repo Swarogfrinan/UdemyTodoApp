@@ -1,4 +1,5 @@
 import UIKit
+import ChameleonFramework
 import RealmSwift
 
 class ToDoViewController: SwipeTableViewController {
@@ -19,6 +20,7 @@ class ToDoViewController: SwipeTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 80.0
+        tableView.separatorStyle = .none
     }
     
     
@@ -58,6 +60,7 @@ class ToDoViewController: SwipeTableViewController {
                         newItem.title = textField.text!
                         newItem.done = false
                         newItem.dataCreated = Date()
+                        newItem.color = RandomFlatColor().hexValue()
                         currentCategory.items.append(newItem)
                     }
                 } catch {
@@ -89,6 +92,7 @@ extension ToDoViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        cell.backgroundColor = UIColor.randomFlat()
         
         if  let item = toDoItems?[indexPath.row] {
             cell.accessoryType = item.done ? .checkmark : .none
