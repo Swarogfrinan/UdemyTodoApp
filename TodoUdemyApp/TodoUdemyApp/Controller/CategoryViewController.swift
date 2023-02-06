@@ -85,16 +85,27 @@ final class CategoryViewController: SwipeTableViewController {
 //MARK: - TableView DataSource Methods
 
 extension CategoryViewController {
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories?.count ?? 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        if  let color = categories?[indexPath.row].color {
-            cell.backgroundColor = UIColor(hexString: color)
+        
+        if let category = categories?[indexPath.row] {
+            cell.textLabel?.text = category.title
+            
+            guard let categoryColour = UIColor(hexString: category.color)  else {fatalError("Doesnt categories color exist")}
+            
+                cell.backgroundColor = categoryColour
+                cell.textLabel?.textColor = ContrastColorOf(categoryColour, returnFlat: true)
         }
-        cell.textLabel?.text = categories?[indexPath.row].title ?? "No categories added yet"
+    
+       
+        
+       
+        
         return cell
     }
 }
