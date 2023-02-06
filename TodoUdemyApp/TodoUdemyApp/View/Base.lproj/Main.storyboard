@@ -100,12 +100,14 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Items" largeTitleDisplayMode="always" id="0Za-ga-75i">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="bNW-9w-rKl">
-                            <color key="tintColor" systemColor="tintColor"/>
                             <connections>
                                 <action selector="addButtonPressed:" destination="3kP-Ub-Bh9" id="vbW-tM-VOg"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="qaa-z8-A3f" id="ZU0-ly-DPs"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kak-on-X1d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -121,9 +123,6 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="tintColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
